@@ -12,6 +12,8 @@ import Combine
 class SettingViewController: UIViewController {
     
     private let settingViewModel = SettingViewModel()
+    
+    // サブスクライバーをキャンセルするためのインスタンスを保持する変数
     private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -30,18 +32,32 @@ class SettingViewController: UIViewController {
         vc.view.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
         vc.view.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
-        // SwiftUIViewと繋ぐ
+        // SettingViewの決定ボタンをタップした時に値が変化変化する、それによってUIViewControllerの画面遷移制御する
         bind()
+    }
+    
+    // 画面を閉じる
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // サブスクライバーをキャンセルする
+        cancellables.removeAll()
     }
     
     // MARK: - Bind SwiftUIView
     private func bind() {
+        //@PublishedされたisCloseTappedをパブリッシャーとなる
         self.settingViewModel.$isCloseTapped
+            // サブスクライバーに渡すかフィルタリングする（今回は無条件にサブスクライバーに渡す）
             .filter { $0 }
-            .sink { [unowned self] _ in
-                // 決定ボタンがタップされたので1つ前のViewControllerに戻る
-                self.navigationController?.popViewController(animated: true)
-            }
+            // サブスクライバー(値を受け取る)を登録する
+            .sink(receiveValue: { [unowned self] isCloseTapped in
+                if isCloseTapped {
+                    // 決定ボタンがタップされたので1つ前のViewControllerに戻る
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+            // サブスクライバーをキャンセルするためのインスタンスを保持する
             .store(in : &cancellables)
     }
     
