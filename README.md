@@ -23,7 +23,7 @@ SwiftUI内のボタンなどの操作によって画面遷移をしています�
 
 ```swift
 // SwiftUIをUIViewに貼り付ける
-let vc: UIHostingController = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
+let vc = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
 view.addSubview(vc.view)
 ```
 
@@ -55,7 +55,7 @@ private let settingViewModel = SettingViewModel()
 
 　　　　　　　（省略）
 
-let vc: UIHostingController = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
+let vc = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
 ```
 
 
@@ -121,4 +121,6 @@ private func bind() {
 - [【SwiftUI】Combine フレームワーク使ってみた 〜 その５ 〜 SwiftUI で天気予報を表示](https://youtu.be/zp_YQkdDtH8)
 
 - [[SwiftUI][Combine] @Published は、Publisher を提供する Property Wrapper](https://software.small-desk.com/development/2021/02/17/swift-combine-atpublished-publisher/)
+
+- [そろそろCombine iOSDC Japan 2020](https://fortee.jp/iosdc-japan-2020/proposal/3338e9cc-da3e-462c-951a-6ebe9f8664f4)
 
