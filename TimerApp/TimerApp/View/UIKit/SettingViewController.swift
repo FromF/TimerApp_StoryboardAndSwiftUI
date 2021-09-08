@@ -22,7 +22,7 @@ class SettingViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // SwiftUIをUIViewに貼り付ける
-        let vc: UIHostingController = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
+        let vc = UIHostingController(rootView: SettingView(settingViewModel: settingViewModel))
         view.addSubview(vc.view)
         
         // SafeArea内の配置するようにAutolayoutを設定する
@@ -34,14 +34,6 @@ class SettingViewController: UIViewController {
         
         // SettingViewの決定ボタンをタップした時に値が変化変化する、それによってUIViewControllerの画面遷移制御する
         bind()
-    }
-    
-    // 画面を閉じる
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        // サブスクライバーをキャンセルする
-        cancellables.removeAll()
     }
     
     // MARK: - Bind SwiftUIView
