@@ -38,7 +38,7 @@ class SettingViewController: UIViewController {
     
     // MARK: - Bind SwiftUIView
     private func bind() {
-        //@PublishedされたisCloseTappedをパブリッシャーとなる
+        //@Publishedされたプロパティー変数isCloseTappedに$をつけるとパブリッシャーとなる
         self.settingViewModel.$isCloseTapped
             // サブスクライバーに渡すかフィルタリングする（今回は無条件にサブスクライバーに渡す）
             .filter { $0 }

@@ -93,21 +93,21 @@ Button(action: {
 ●SettingViewController.swift `private func bind()`
 
 ```swift
-private func bind() {
-    //@PublishedされたisCloseTappedをパブリッシャーとなる
-    self.settingViewModel.$isCloseTapped
-        // サブスクライバーに渡すかフィルタリングする（今回は無条件にサブスクライバーに渡す）
-        .filter { $0 }
-        // サブスクライバー(値を受け取る)を登録する
-        .sink(receiveValue: { [unowned self] isCloseTapped in
-            if isCloseTapped {
-                // 決定ボタンがタップされたので1つ前のViewControllerに戻る
-                self.navigationController?.popViewController(animated: true)
-            }
-        })
-        // サブスクライバーをキャンセルするためのインスタンスを保持する
-        .store(in : &cancellables)
-}
+    private func bind() {
+        //@Publishedされたプロパティー変数isCloseTappedに$をつけるとパブリッシャーとなる
+        self.settingViewModel.$isCloseTapped
+            // サブスクライバーに渡すかフィルタリングする（今回は無条件にサブスクライバーに渡す）
+            .filter { $0 }
+            // サブスクライバー(値を受け取る)を登録する
+            .sink(receiveValue: { [unowned self] isCloseTapped in
+                if isCloseTapped {
+                    // 決定ボタンがタップされたので1つ前のViewControllerに戻る
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
+            // サブスクライバーをキャンセルするためのインスタンスを保持する
+            .store(in : &cancellables)
+    }
 ```
 
 
